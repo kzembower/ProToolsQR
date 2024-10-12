@@ -1,0 +1,279 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+%% Reference Card for ProTools
+
+%% Author: Kevin Zembower
+
+\documentclass[10pt]{article} 
+\usepackage[portrait]{geometry}
+%% \geometry{
+%%   letterpaper,
+%%   top = 0mm,
+%%   width = 3in,                  %3x5 index card, portrait orientation
+%%   height = 5in,
+%%   %% left = 2.2125in,              %
+%% }
+\geometry{
+  letterpaper,
+  landscape,
+  total={10in, 7.5in}
+}
+
+\usepackage{multicol}
+
+%% \usepackage[utf8]{inputenc}     %For Unicode characters
+
+\usepackage{fontspec}
+\setmainfont{FreeSerif}         %Contains all these characters
+%% \setmainfont{DejaVu Serif}      %Contains all these characters
+
+%% \tracinglostchars=2 % Print a warning if a character is missing.
+
+%% \DeclareUnicodeCharacter{⌘}{\keycmd}
+%% \DeclareRobustCommand\keycmd{\keycmd}
+
+%% \usepackage{showframe}
+
+\pagestyle{empty}
+
+%% \def\scaledmag#1{ scaled \magstep #1}
+%% \font\titlefont=cmbx10 \scaledmag 1
+
+\chardef\\=`\\
+\chardef\{=`\{
+\chardef\}=`\}
+\chardef\]=`\]
+\chardef\[=`\[
+
+\def\cmd{⌘\enspace}             %U+2318
+\def\shift{⇧\enspace}           %U+21E7
+\def\opt{⌥\enspace}             %U+2325
+\def\tab{⇥\enspace}             %U+21E5
+\def\return{↩\enspace}         %U+21A9
+\def\arrowkeyup{↑\enspace}      %U+2191
+\def\arrowkeydown{↓\enspace}    %U+2193
+\def\ctrl{⌃\enspace}            %U+2303
+
+\def\versionpt{2024.6.0}             %ProTools version
+
+% title - page title.  Argument is title text.
+\outer\def\title#1{{\centerline{\textbf{#1}}}\vskip 1ex plus .5ex}
+
+% section - new major section.  Argument is section name.
+\outer\def\section#1{\par\filbreak
+  \vskip 2ex plus 2ex minus 2ex {\textbf{#1}}\mark{#1}%
+  \vskip 0ex plus 1ex minus 1.5ex}
+  %% \vskip 2ex plus 1ex minus 1.5ex}
+
+\newdimen\keyindent
+% beginindentedkeys...endindentedkeys - key definitions will be
+% indented, but running text, typically used as headings to group
+% definitions, will not.
+\def\beginindentedkeys{\keyindent=1em}
+\def\endindentedkeys{\keyindent=0em}
+\endindentedkeys
+
+% kbd - argument is characters typed literally.  Like the Texinfo command.
+\def\kbd#1{{#1}\null}	%\null so not an abbrev even if period follows
+
+% key - definition of a key.
+% \key{description of key}{key-name}
+% prints the description left-justified, and the key-name in a \kbd
+% form near the right margin.
+\def\key#1#2{\leavevmode\hbox to \hsize{\vtop
+  {\hsize=.65\hsize\rightskip=1em
+  \hskip\keyindent\relax#1}#2\hfil}}
+
+%% \def\key#1#2{\leavevmode\hbox to \hsize{\vtop  % Working version
+%%   {\hsize=.75\hsize\rightskip=1em
+%%   \hskip\keyindent\relax#1}#2\hfil}}
+
+% threecol - like "key" but with two key names.
+% for example, one for doing the action backward, and one for forward.
+\def\threecol#1#2#3{\hskip\keyindent\relax#1\hfil&\kbd{#2}\hfil\quad
+  &\kbd{#3}\hfil\quad\cr}
+
+\newbox\metaxbox
+\setbox\metaxbox\hbox{\kbd{M-x }}
+\newdimen\metaxwidth
+\metaxwidth=\wd\metaxbox
+
+% metax - definition of a M-x command.
+% \metax{description of command}{M-x command-name}
+% Tries to justify the beginning of the command name at the same place
+% as \key starts the key name.  (The "M-x " sticks out to the left.)
+\def\metax#1#2{\leavevmode\hbox to \hsize{\hbox to .75\hsize
+  {\hskip\keyindent\relax#1\hfil}%
+  \hskip -\metaxwidth minus 1fil
+  \kbd{#2}\hfil}}
+
+\parindent 0pt
+\parskip 1ex plus .5ex minus .5ex
+
+\def\copyrightnotice{
+\vskip 1ex plus 2 fill\begingroup\small
+\centerline{Copyright \copyright\ \year\ E. Kevin Zembower}
+
+This work is licensed under Creative Commons Attribution-ShareAlike
+4.0 International.
+
+Access the source and output of this document at
+\texttt{https://github.com/kzembower/ProToolsQR}.
+\endgroup}
+
+\begin{document}
+%% \footnotesize                   %Too big for 3x5 on page 2
+%% \scriptsize
+%% \tiny
+
+\begin{multicols}{3}
+  \title{ProTools Quick Reference Card}
+
+  \centerline{(for version \versionpt)}
+
+  \section{Key Binding Notation}
+
+  \begin{tabular}{l@{\thinspace}ll@{\thinspace}l}
+    \cmd          & Command         & \shift        & Shift           \\
+    \tab          & Tab             & \opt          & Option          \\
+    \ctrl         & Control         & \return       & Return or Enter \\
+    \arrowkeyup   & Up arrow        & \arrowkeydown & Down arrow
+  \end{tabular}
+
+  \section{Session}
+  \key{New}{\cmd N}
+  \key{Save}{\cmd S}
+  \key{Save as}{\ctrl\cmd S}
+  
+  \section{Zooming}
+  \key{In/Out horiz}{T / R}
+  \key{In/Out vert}{\cmd \opt , (comma)}
+  \key{Selection}{\cmd \ctrl }
+  \metax{Recall Zoom memory 1/2/3/4/5}{1/2/3/4/5}
+  \key{All clips}{\opt A}
+  \key{Fill window-selection}{\opt F}
+  \key{Zoom toggle}{\ctrl E}
+
+  \section{View}
+  \key{Narrow mix}{\opt\cmd N}
+  \key{Track marker lane}{\shift U}
+
+  \section{Playing}
+  \key{Start and Stop}{(spacebar)}
+  \key{Selection}{\opt \[}
+  \key{\dots to edit start}{6}
+  \key{\dots from edit start}{7}
+  \key{\dots to edit end}{8}
+  \key{\dots from edit end}{9}
+  \key{Solo cursor track}{\shift S}
+  \key{Mute}{\cmd M}
+  \key{Mute cursor track}{\shift M}
+  \key{Selection}{\[}
+  \key{Timeline selection}{\]}
+  \key{Loop Enable}{\shift \opt L}
+  \key{Toggle Looping}{\cmd \shift L}
+  \key{Loop clip}{\opt \cmd L}
+  
+  \section{Bounce}
+  \key{Session}{\opt\cmd B}
+  \key{Track}{\opt\shift\cmd B}
+
+  \section{Recording}
+  \metax{Start}{\cmd-spacebar}
+  \key{Stop}{spacebar}
+  \key{Stop and discard}{\cmd . (period)}
+  \key{Record-enable cursor track}{\shift R}
+
+  \section{Tracks}
+  \key{New}{\shift\cmd N}
+  \key{Import audio}{\shift\cmd I}
+  \key{Group}{\cmd G}
+  \key{Duplicate}{\opt\shift D}
+  \key{Move to new folder}{\opt\shift\cmd D}
+
+  \section{Clips}
+  \key{Edit Lock/Unlock}{\cmd L}
+  \key{Time Lock/Unlock}{\ctrl \opt L}
+  \key{Send to back}{\opt \shift B}
+  \key{Bring to front}{\opt \shift F}
+  \key{Group}{\opt \cmd G}
+  \key{Ungroup}{\opt\cmd U}
+  \key{Regroup}{\opt\cmd R}
+  \key{Capture}{\cmd R}
+  \key{Rename}{\opt\shift\cmd R}
+
+  \section{Move Clip}
+  \key{Start to cursor}{H}
+  \key{End to cursor}{K}
+  \key{Sync part by cursor}{J}
+  \key{Nudge earlier/later}{, (comma)/. (period)}
+  \key{Big nudge earlier/later}{M / / (slash)}
+
+  \section{Trim}
+  \key{Cursor to start/end}{A / S}
+  \key{Break at cursor (Separate)}{B}
+  \key{Heal separation}{\cmd H}
+  \key{Strip silence}{\cmd U}
+
+  \section{Fade}
+  \key{Start to cursor}{D}
+  \key{Cursor to end}{G}
+  \key{Crossfade}{F}
+
+  \section{Edit}
+  \key{Cut}{\cmd X}
+  \key{Copy}{\cmd C}
+  \key{Paste}{\cmd V}
+  \key{Undo}{\cmd Z}
+  \key{Clear}{\cmd B}
+  \key{Select all}{\cmd A}
+  \key{Insert silence}{\shift\cmd E}
+  
+  \section{Modes}
+  \key{Shuffle*}{F1 or \opt 1}
+  \key{Slip*}{F2 or \opt 2}
+  \key{Spot*}{F3 or \opt 3}
+  \key{Grid}{F4 or \opt 4}
+  \key{Cycle Edit modes}{' (apostrophe) }
+
+  * can enable with Grid mode by pressing key and \kbd{F4} at the same
+  time.
+
+  \section{Cursor Movement}
+  \key{Next clip boundary}{\tab}
+  \key{Previous clip boundary}{\opt \tab}
+  \key{Select next clip}{\ctrl \tab}
+  \key{Select previous clip}{\ctrl \opt \tab}
+  \key{Session start}{\return}
+  \key{Session end}{\opt \return}
+  \key{Beginning/End of selection}{\arrowkeyup~/~\arrowkeydown}
+  \key{Goto song start}{\ctrl \return}
+
+  \section{Tools}
+  \key{Zoomer}{F5 or \cmd 1}
+  \key{Trimmer}{F6 or \cmd 2}
+  \key{Selector}{F7 or \cmd 3}
+  \key{Grabber}{F8 or \cmd 4}
+  \key{Scrubber}{F9 or \cmd 5}
+  \key{Pencil}{F10 or \cmd 6}
+  \key{Smart}{F6 \& F7}
+  \key{Cycle Edit tools}{Esc}
+
+  \section{Extend Selection}
+  \key{To start of session}{\shift \return}
+  \key{To end of session}{\shift \opt \return}
+
+  \section{Link Edit Selection}
+  \key{\dots to Timeline}{\shift /}
+  \key{\dots to Track}{\shift T}
+
+  \section{Beats}
+  \key{Beat Detective}{\cmd 8}
+  \key{Identify Beats}{\cmd I}
+
+  \copyrightnotice
+  
+\end{multicols}
+
+\end{document}

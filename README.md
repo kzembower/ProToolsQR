@@ -10,4 +10,4 @@ Please make any suggestions and changes by cloning the repository and
 making a pull request. Any problems with the information, or with the
 output can also be registered as an issue.
 
-I hope you find this rquick reference useful and productive.
+I hope you find this quick reference useful and productive.

@@ -22,6 +22,9 @@
 
 \usepackage{multicol}
 
+\usepackage{hyperref}           %To make link to github repository in
+                                %copyright statement
+
 %% \usepackage[utf8]{inputenc}     %For Unicode characters
 
 \usepackage{fontspec}
@@ -113,13 +116,14 @@
 
 \def\copyrightnotice{
 \vskip 1ex plus 2 fill\begingroup\small
-\centerline{Copyright \copyright\ \year\ E. Kevin Zembower}
+\centerline{Copyright \copyright\ \the\year{} E. Kevin Zembower}
 
 This work is licensed under Creative Commons Attribution-ShareAlike
-4.0 International.
+4.0 International. To view a copy of this license, visit
+\url{https://creativecommons.org/licenses/by-sa/4.0/}/
 
 Access the source and output of this document at
-\texttt{https://github.com/kzembower/ProToolsQR}.
+\url{https://github.com/kzembower/ProToolsQR}.
 \endgroup}
 
 \begin{document}
@@ -148,7 +152,8 @@ Access the source and output of this document at
   
   \section{Zooming}
   \key{In/Out horiz}{T / R}
-  \key{In/Out vert}{\cmd \opt , (comma)}
+  \key{In/Out vert incrementally}{\cmd \opt [ / ]}
+  \key{In/Out vert}{\cmd \opt \ctrl [ / ]}
   \key{Selection}{\cmd \ctrl }
   \metax{Recall Zoom memory 1/2/3/4/5}{1/2/3/4/5}
   \key{All clips}{\opt A}
@@ -160,12 +165,13 @@ Access the source and output of this document at
   \key{Track marker lane}{\shift U}
 
   \section{Playing}
-  \key{Start and Stop}{(spacebar)}
+  \key{Start and Stop}{spacebar}
+  \key{Half-speed playback}{\shift spacebar}
   \key{Selection}{\opt \[}
-  \key{\dots to edit start}{6}
-  \key{\dots from edit start}{7}
-  \key{\dots to edit end}{8}
-  \key{\dots from edit end}{9}
+  \key{Cursor to edit start}{6}
+  \key{From edit start to cursor}{7}
+  \key{Cursorto edit end}{8}
+  \key{From edit end to cursor}{9}
   \key{Solo cursor track}{\shift S}
   \key{Mute}{\cmd M}
   \key{Mute cursor track}{\shift M}
@@ -180,10 +186,11 @@ Access the source and output of this document at
   \key{Track}{\opt\shift\cmd B}
 
   \section{Recording}
-  \metax{Start}{\cmd-spacebar}
+  \metax{Start}{\cmd spacebar}
   \key{Stop}{spacebar}
   \key{Stop and discard}{\cmd . (period)}
   \key{Record-enable cursor track}{\shift R}
+  \key{Loop record}{\opt L}
 
   \section{Tracks}
   \key{New}{\shift\cmd N}
@@ -207,7 +214,7 @@ Access the source and output of this document at
   \key{Start to cursor}{H}
   \key{End to cursor}{K}
   \key{Sync part by cursor}{J}
-  \key{Nudge earlier/later}{, (comma)/. (period)}
+  \key{Nudge earlier/later}{, (comma) / . (period)}
   \key{Big nudge earlier/later}{M / / (slash)}
 
   \section{Trim}
@@ -217,6 +224,7 @@ Access the source and output of this document at
   \key{Strip silence}{\cmd U}
 
   \section{Fade}
+  \key{Fade dialog}{\cmd F}
   \key{Start to cursor}{D}
   \key{Cursor to end}{G}
   \key{Crossfade}{F}
@@ -247,7 +255,7 @@ Access the source and output of this document at
   \key{Select previous clip}{\ctrl \opt \tab}
   \key{Session start}{\return}
   \key{Session end}{\opt \return}
-  \key{Beginning/End of selection}{\arrowkeyup~/~\arrowkeydown}
+  \key{Beginning/End of selection}{\arrowkeyup/\ \arrowkeydown}
   \key{Goto song start}{\ctrl \return}
 
   \section{Tools}
